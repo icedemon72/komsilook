@@ -43,7 +43,7 @@ class LoginFragment : Fragment() {
 			if (email.isNotEmpty() && password.isNotEmpty()) {
 				authViewModel.login(email, password)
 			} else {
-				Snackbar.make(view, "Please enter all fields", Snackbar.LENGTH_SHORT).show()
+				Snackbar.make(view, "Popunite sva polja", Snackbar.LENGTH_SHORT).show()
 			}
 		}
 
@@ -68,13 +68,11 @@ class LoginFragment : Fragment() {
 
 				is Resource.Error -> {
 					binding.progressBar.visibility = View.GONE
-					Snackbar.make(view, state.message ?: "Login failed", Snackbar.LENGTH_LONG)
-						.show()
+					Snackbar.make(view, "Greška prilikom prijave: uneta je netačna e-adresa i/ili lozinka", Snackbar.LENGTH_LONG).show()
 				}
 
 				null -> {
 					binding.progressBar.visibility = View.GONE
-
 				}
 			}
 		}

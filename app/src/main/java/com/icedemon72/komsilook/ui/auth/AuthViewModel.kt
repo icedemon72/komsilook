@@ -48,7 +48,6 @@ class AuthViewModel (private val repository: AuthRepository): ViewModel() {
         }
     }
 
-
     fun login(email: String, password: String) {
         viewModelScope.launch {
             _authState.value = Resource.Loading()
@@ -61,21 +60,6 @@ class AuthViewModel (private val repository: AuthRepository): ViewModel() {
             }
         }
     }
-
-    fun loginWithGoogle(idToken: String) {
-        viewModelScope.launch {
-            _authState.value = Resource.Loading()
-            val result = repository.loginWithGoogle(idToken)
-
-            _authState.value = when (result) {
-                is Resource.Success -> Resource.Success(User(result.data!!.user?.uid, result.data.user?.email))
-                is Resource.Error -> Resource.Error(result.message!!)
-                is Resource.Loading -> Resource.Loading()
-            }
-        }
-    }
-
-
 
     fun logout() {
         repository.logout();

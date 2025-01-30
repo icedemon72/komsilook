@@ -1,6 +1,8 @@
 package com.icedemon72.komsilook
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -8,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import com.icedemon72.komsilook.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -29,9 +32,36 @@ class MainActivity : AppCompatActivity() {
 			val systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 			view.updatePadding(
 				top = systemBarsInsets.top,
-				bottom = systemBarsInsets.bottom
+//				bottom = systemBarsInsets.bottom
 			)
 			insets
+		}
+
+		// Bottom navigation show/hide handler
+		navController.addOnDestinationChangedListener { _, destination, _ ->
+			binding.bottomNavigationView.visibility = when (destination.id) {
+				R.id.loginFragment, R.id.registerFragment -> View.GONE
+				else -> View.VISIBLE
+			}
+		}
+
+		binding.bottomNavigationView.selectedItemId = R.id.nav_home
+		binding.bottomNavigationView.setOnItemSelectedListener { item ->
+			when (item.itemId) {
+				R.id.nav_search -> {
+
+					true
+				}
+				R.id.nav_home -> {
+					navController.navigate(R.id.homeFragment)
+					true
+				}
+				R.id.nav_profile -> {
+					navController.navigate(R.id.profileFragment)
+					true
+				}
+				else -> false
+			}
 		}
 
 
@@ -40,7 +70,4 @@ class MainActivity : AppCompatActivity() {
 	override fun onSupportNavigateUp(): Boolean {
 		return navController.navigateUp() || super.onSupportNavigateUp()
 	}
-
-
-
 }

@@ -57,6 +57,9 @@ dependencies {
 	implementation(libs.androidx.appcompat)
 	implementation(libs.firebase.auth)
 	implementation(libs.firebase.auth)
+	implementation(libs.androidx.legacy.support.v4)
+	implementation(libs.androidx.lifecycle.livedata.ktx)
+	implementation(libs.androidx.fragment.ktx)
 
 	// Tests
 	testImplementation(libs.junit)
