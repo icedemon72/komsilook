@@ -7,21 +7,16 @@ import android.view.View
 import android.view.ViewGroup
 import com.icedemon72.komsilook.R
 import com.icedemon72.komsilook.databinding.FragmentHomeBinding
+import com.icedemon72.komsilook.utils.BaseFragment
 
-class HomeFragment : Fragment() {
-	private var _binding: FragmentHomeBinding? = null
-	private val binding get() = _binding!!
-
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View? {
-		// Inflate the layout for this fragment
-		return inflater.inflate(R.layout.fragment_home, container, false)
-	}
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
 
+	}
+
+	override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentHomeBinding {
+		return FragmentHomeBinding.inflate(inflater, container, false)
 	}
 }

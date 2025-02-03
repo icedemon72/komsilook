@@ -1,8 +1,7 @@
 package com.icedemon72.komsilook.ui.auth
 
-import AuthViewModelFactory
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,27 +10,13 @@ import com.icedemon72.komsilook.R
 import com.icedemon72.komsilook.databinding.FragmentLoginBinding
 import com.icedemon72.komsilook.utils.Resource
 import com.google.android.material.snackbar.Snackbar
-import androidx.lifecycle.ViewModelProvider
-import com.icedemon72.komsilook.data.repositories.AuthRepository
+import com.icedemon72.komsilook.Komsilook
+import com.icedemon72.komsilook.utils.BaseFragment
+import javax.inject.Inject
 
-// import com.google.android.gms.auth.api.signin.GoogleSignInClient
-
-class LoginFragment : Fragment() {
-	private var _binding: FragmentLoginBinding? = null
-	private val binding get() = _binding!!
-	private lateinit var authViewModel: AuthViewModel
-	// private lateinit var googleSignInClient: GoogleSignInClient
-
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View {
-		_binding = FragmentLoginBinding.inflate(inflater, container, false)
-		val authRepository = AuthRepository()  // Or get it via DI framework like Dagger/Hilt
-		val factory = AuthViewModelFactory(authRepository)
-		authViewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
-		return binding.root
-	}
+class LoginFragment : BaseFragment<FragmentLoginBinding>() {
+	@Inject
+	lateinit var authViewModel: AuthViewModel
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
@@ -46,11 +31,6 @@ class LoginFragment : Fragment() {
 				Snackbar.make(view, "Popunite sva polja", Snackbar.LENGTH_SHORT).show()
 			}
 		}
-
-		// TODO: Implement Google Sign-In functionality
-		//	binding.btnGoogleSignIn.setOnClickListener {
-		//		googleSignIn();
-		//	}
 
 		binding.tvRegister.setOnClickListener {
 			findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
@@ -68,7 +48,11 @@ class LoginFragment : Fragment() {
 
 				is Resource.Error -> {
 					binding.progressBar.visibility = View.GONE
-					Snackbar.make(view, "Greška prilikom prijave: uneta je netačna e-adresa i/ili lozinka", Snackbar.LENGTH_LONG).show()
+					Snackbar.make(
+						view,
+						"Greška prilikom prijave: uneta je netačna e-adresa i/ili lozinka",
+						Snackbar.LENGTH_LONG
+					).show()
 				}
 
 				null -> {
@@ -76,16 +60,15 @@ class LoginFragment : Fragment() {
 				}
 			}
 		}
-
 	}
 
-	private fun googleSignIn() {
-		// val signInIntent = googleSignInClient.signInIntent
-		// startActivityForResult(signInIntent, 100)
+	override fun onAttach(context: Context) {
+		super.onAttach(context)
+		(activity?.application as Komsilook).appComponent.inject(this)
 	}
 
-	override fun onDestroyView() {
-		super.onDestroyView()
-		_binding = null
+	override fun getViewBinding (inflater: LayoutInflater, container: ViewGroup?): FragmentLoginBinding {
+		return FragmentLoginBinding.inflate(inflater, container, false)
 	}
+
 }

@@ -8,16 +8,18 @@ import com.icedemon72.komsilook.data.models.User
 import com.icedemon72.komsilook.data.repositories.AuthRepository
 import com.icedemon72.komsilook.utils.Resource
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AuthViewModel (private val repository: AuthRepository): ViewModel() {
-    private val _authState = MutableLiveData<Resource<User>?>(null);
-    val authState: LiveData<Resource<User>?> = _authState;
+class AuthViewModel @Inject constructor(
+    private val repository: AuthRepository
+): ViewModel() {
+    private val _authState = MutableLiveData<Resource<User>?>(null)
+    val authState: LiveData<Resource<User>?> = _authState
 
     init {
         // Check if a user is already logged in on ViewModel initialization
         checkCurrentUser()
     }
-
 
     private fun checkCurrentUser() {
         val currentUser = repository.getCurrentUser()

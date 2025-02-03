@@ -39,9 +39,43 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.icedemon72.komsilook.ui.pages.profile.ProfileFragment"
-        android:label="ProfileFragment" >
+        android:label="ProfileFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.icedemon72.komsilook.ui.pages.search.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/communitiesFragment"
+        android:name="com.icedemon72.komsilook.ui.pages.communities.CommunitiesFragment"
+        android:label="fragment_communities"
+        tools:layout="@layout/fragment_communities" >
+        <argument
+            android:name="communityId"
+            app:argType="string" />
         <action
-            android:id="@+id/action_profileFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_communitiesFragment_to_createCommunityFragment"
+            app:destination="@id/createCommunityFragment" />
+        <action
+            android:id="@+id/action_communitiesFragment_to_communityFragment"
+            app:destination="@id/communityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createCommunityFragment"
+        android:name="com.icedemon72.komsilook.ui.pages.communities.createcommunity.CreateCommunityFragment"
+        android:label="fragment_create_community"
+        tools:layout="@layout/fragment_create_community" >
+        <action
+            android:id="@+id/action_createCommunityFragment_to_communityFragment"
+            app:destination="@id/communityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.icedemon72.komsilook.ui.pages.communities.community.CommunityFragment"
+        android:label="fragment_community"
+        tools:layout="@layout/fragment_community" >
+        <argument
+            android:name="communityId"
+            app:argType="string" />
     </fragment>
 </navigation>

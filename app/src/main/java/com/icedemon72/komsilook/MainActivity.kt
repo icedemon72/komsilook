@@ -2,16 +2,17 @@ package com.icedemon72.komsilook
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.FragmentFactory
 import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import com.icedemon72.komsilook.databinding.ActivityMainBinding
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 	private lateinit var binding: ActivityMainBinding
@@ -20,6 +21,9 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		enableEdgeToEdge()
+
+		// Light mode
+		AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
 		// Use DataBinding to set the content view
 		binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -48,8 +52,12 @@ class MainActivity : AppCompatActivity() {
 		binding.bottomNavigationView.selectedItemId = R.id.nav_home
 		binding.bottomNavigationView.setOnItemSelectedListener { item ->
 			when (item.itemId) {
+				R.id.nav_communities -> {
+					navController.navigate(R.id.communitiesFragment)
+					true
+				}
 				R.id.nav_search -> {
-
+					navController.navigate(R.id.searchFragment)
 					true
 				}
 				R.id.nav_home -> {
@@ -63,6 +71,8 @@ class MainActivity : AppCompatActivity() {
 				else -> false
 			}
 		}
+
+
 
 
 	}

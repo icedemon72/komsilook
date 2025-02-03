@@ -1,42 +1,24 @@
 package com.icedemon72.komsilook.ui.auth
 
-import AuthViewModelFactory
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
-import com.icedemon72.komsilook.data.repositories.AuthRepository
+import com.icedemon72.komsilook.Komsilook
 import com.icedemon72.komsilook.databinding.FragmentRegisterBinding
 import com.icedemon72.komsilook.R
+import com.icedemon72.komsilook.databinding.FragmentLoginBinding
+import com.icedemon72.komsilook.utils.BaseFragment
 import com.icedemon72.komsilook.utils.Resource
+import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class RegisterFragment : Fragment() {
-	private var _binding: FragmentRegisterBinding? = null
-	private val binding get() = _binding!!
-	private lateinit var authViewModel: AuthViewModel
-
-
-	override fun onCreateView(
-		inflater: LayoutInflater, container: ViewGroup?,
-		savedInstanceState: Bundle?
-	): View {
-		// Inflate the layout for this fragment
-		_binding = FragmentRegisterBinding.inflate(inflater, container, false)
-		val authRepository = AuthRepository()  // Or get it via DI framework like Dagger/Hilt
-		val factory = AuthViewModelFactory(authRepository)
-		authViewModel = ViewModelProvider(this, factory)[AuthViewModel::class.java]
-		return binding.root
-	}
+class RegisterFragment : BaseFragment<FragmentRegisterBinding>() {
+	@Inject
+	lateinit var authViewModel: AuthViewModel
 
 	override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 		super.onViewCreated(view, savedInstanceState)
@@ -81,9 +63,13 @@ class RegisterFragment : Fragment() {
 
 	}
 
-	override fun onDestroyView() {
-		super.onDestroyView()
-		_binding = null
+	override fun onAttach(context: Context) {
+		super.onAttach(context)
+		(activity?.application as Komsilook).appComponent.inject(this)
+	}
+
+	override fun getViewBinding (inflater: LayoutInflater, container: ViewGroup?): FragmentRegisterBinding {
+		return FragmentRegisterBinding.inflate(inflater, container, false)
 	}
 
 }
