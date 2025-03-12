@@ -5,7 +5,7 @@ import com.icedemon72.komsilook.data.models.Community
 import com.icedemon72.komsilook.utils.Resource
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -39,4 +39,37 @@ class CommunityRepository @Inject constructor(
 		}
 	}
 
+	suspend fun getCommunityById(id: String): Resource<Community> {
+		return try {
+			val documentSnapshot = db.collection("communities")
+				.document(id)
+				.get()
+				.await()
+
+			if (documentSnapshot.exists()) {
+				val community = documentSnapshot.toObject(Community::class.java)
+				community?.uid = documentSnapshot.id
+				Resource.Success(community!!)
+			} else {
+				Resource.Error("Komšilook ne postoji!")
+			}
+		} catch (e: Exception) {
+			Resource.Error(e.localizedMessage ?: "Greška prilikom pristupanja Komšilooku")
+		}
+	}
+
+	suspend fun getNotJoinedCommunities(user: String): Resource<List<Community>> {
+		return try {
+			val documentSnapshot = db.collection("communities")
+				.whereEqualTo("private", false)
+				.get()
+				.await()
+
+			val communities = documentSnapshot.documents.map { it.toObject(Community::class.java)!! }
+			Resource.Success(communities)
+
+		} catch (e: Exception) {
+			Resource.Error(e.localizedMessage ?: "Greška prilikom pristupanja Komšilookcima")
+		}
+	}
 }

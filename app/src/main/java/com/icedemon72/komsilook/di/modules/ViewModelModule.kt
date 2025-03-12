@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.icedemon72.komsilook.di.ViewModelFactory
 import com.icedemon72.komsilook.di.annotations.ViewModelKey
 import com.icedemon72.komsilook.ui.auth.AuthViewModel
+import com.icedemon72.komsilook.ui.pages.communities.CommunitiesViewModel
 import com.icedemon72.komsilook.ui.pages.communities.community.CommunityViewModel
 import com.icedemon72.komsilook.ui.pages.communities.createcommunity.CreateCommunityViewModel
 import com.icedemon72.komsilook.ui.pages.profile.ProfileViewModel
@@ -36,4 +37,9 @@ abstract class ViewModelModule {
 	@IntoMap
 	@ViewModelKey(CommunityViewModel::class)
 	abstract fun bindCommunityViewModel(viewModel: CommunityViewModel): ViewModel
+
+	@Binds
+	@IntoMap
+	@ViewModelKey(CommunitiesViewModel::class)
+	abstract fun bindCommunitiesViewModel(viewModel: CommunitiesViewModel): ViewModel
 }

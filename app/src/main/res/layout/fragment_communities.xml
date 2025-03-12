@@ -7,39 +7,50 @@
 
     <data></data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/margin_small">
+    <FrameLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
 
-            <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Hello komsilookci" />
+                android:orientation="vertical"
+                android:layout_margin="@dimen/margin_small">
 
-        </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Hello komsilookci" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/addBtn"
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/addBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="@dimen/margin_medium"
+                android:contentDescription="Add"
+                android:src="@android:drawable/ic_input_add"
+                app:backgroundTint="@color/button_confirm"
+                app:layout_anchorGravity="bottom|end"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:maxImageSize="40dp"
+                app:rippleColor="@color/button_confirm" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/margin_medium"
-            android:contentDescription="Add"
-            android:src="@android:drawable/ic_input_add"
-            app:backgroundTint="@color/button_confirm"
-            app:layout_anchorGravity="bottom|end"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:maxImageSize="40dp"
-            app:rippleColor="@color/button_confirm" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+            android:layout_gravity="center"
+            android:visibility="gone" />
+    </FrameLayout>
 
 
 

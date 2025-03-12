@@ -24,32 +24,32 @@ class CreateCommunityFragment : BaseFragment<FragmentCreateCommunityBinding>() {
 		super.onViewCreated(view, savedInstanceState)
 
 		binding.btnCreate.setOnClickListener {
-			val name = binding.etName.text.toString()
-			val description = binding.etDescription.text.toString()
-			val location = binding.etLocation.text.toString()
-			val isPrivate = binding.etPrivate.isChecked
+			binding.etName.text.toString()
+			binding.etDescription.text.toString()
+			binding.etLocation.text.toString()
+			binding.etPrivate.isChecked
 
-			createCommunityViewModel.create(name, description, location, isPrivate)
+			// createCommunityViewModel.create(name, description, location, isPrivate)
 
 		}
 
-		createCommunityViewModel.communityState.observe(viewLifecycleOwner) { state ->
-			when (state) {
-				is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-				is Resource.Success -> {
-					binding.progressBar.visibility = View.GONE
-					Snackbar.make(view, "Uspešno kreiranje Komšilooka!", Snackbar.LENGTH_SHORT).show()
-//					 findNavController().navigate(R.id.action_createCommunityFragment_to_communityFragment)
-				}
-				is Resource.Error -> {
-					binding.progressBar.visibility = View.GONE
-					Snackbar.make(view, "Greška prilikom krerianja Komšilooka!", Snackbar.LENGTH_LONG).show()
-				}
-				null -> {
-					binding.progressBar.visibility = View.GONE
-				}
-			}
-		}
+//		createCommunityViewModel.communityState.observe(viewLifecycleOwner) { state ->
+//			when (state) {
+//				is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+//				is Resource.Success -> {
+//					binding.progressBar.visibility = View.GONE
+//					Snackbar.make(view, "Uspešno kreiranje Komšilooka!", Snackbar.LENGTH_SHORT).show()
+////					 findNavController().navigate(R.id.action_createCommunityFragment_to_communityFragment)
+//				}
+//				is Resource.Error -> {
+//					binding.progressBar.visibility = View.GONE
+//					Snackbar.make(view, "Greška prilikom krerianja Komšilooka!", Snackbar.LENGTH_LONG).show()
+//				}
+//				null -> {
+//					binding.progressBar.visibility = View.GONE
+//				}
+//			}
+//		}
 
 
 

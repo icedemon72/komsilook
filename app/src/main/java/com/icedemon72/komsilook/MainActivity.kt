@@ -9,10 +9,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.FragmentFactory
 import androidx.navigation.NavController
 import com.icedemon72.komsilook.databinding.ActivityMainBinding
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 	private lateinit var binding: ActivityMainBinding

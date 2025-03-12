@@ -6,8 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.icedemon72.komsilook.data.models.Community
 import com.icedemon72.komsilook.data.repositories.CommunityRepository
 import com.icedemon72.komsilook.utils.Resource
@@ -16,26 +14,19 @@ import javax.inject.Inject
 
 class CreateCommunityViewModel @Inject constructor(
 	private val repository: CommunityRepository,
-	private val auth: FirebaseAuth
+	private val auth: FirebaseAuth,
 ): ViewModel() {
-
+	private val userId = auth.currentUser?.uid
 	private val _communityState = MutableLiveData<Resource<Community>?>(null)
 	val communityState: LiveData<Resource<Community>?> = _communityState
 
 	fun create(name: String, description: String, location: String, isPrivate: Boolean = false) {
-		val createdBy = auth.currentUser?.uid
-
-		if (createdBy == null) {
-			_communityState.value = Resource.Error("User is not authenticated.")
-			return
-		}
-
-		Log.d("CreateCommunity", "Creating community with user ID: $createdBy")
+		Log.d("CreateCommunity", "Creating community with user ID: $userId")
 
 		viewModelScope.launch {
 			_communityState.value = Resource.Loading()
 
-			val result = repository.createCommunity(name, description, location, isPrivate, createdBy!!)
+			val result = repository.createCommunity(name, description, location, isPrivate, userId!!)
 			Log.d("CreateCommunity", result.data.toString())
 			_communityState.value = when (result) {
 				is Resource.Success -> Resource.Success(result.data)

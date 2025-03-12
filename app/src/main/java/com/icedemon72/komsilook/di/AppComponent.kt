@@ -9,6 +9,7 @@ import com.icedemon72.komsilook.di.modules.RepositoryModule
 import com.icedemon72.komsilook.di.modules.ViewModelModule
 import com.icedemon72.komsilook.ui.auth.LoginFragment
 import com.icedemon72.komsilook.ui.auth.RegisterFragment
+import com.icedemon72.komsilook.ui.pages.communities.CommunitiesFragment
 import com.icedemon72.komsilook.ui.pages.communities.community.CommunityFragment
 import com.icedemon72.komsilook.ui.pages.communities.createcommunity.CreateCommunityFragment
 import com.icedemon72.komsilook.ui.pages.profile.ProfileFragment
@@ -37,6 +38,7 @@ interface AppComponent {
 	fun inject(fragment: CreateCommunityFragment)
 	fun inject(fragment: ProfileFragment)
 	fun inject(fragment: CommunityFragment)
+	fun inject(fragment: CommunitiesFragment)
 	// Add other inject methods for activities, services, etc.
 }
 

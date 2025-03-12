@@ -2,7 +2,7 @@ plugins {
 	alias(libs.plugins.android.application)
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.google.gms.google.services)
-	kotlin("kapt")
+	alias(libs.plugins.ksp)
 }
 
 android {
@@ -57,7 +57,6 @@ dependencies {
 	implementation(libs.androidx.core.ktx)
 	implementation(libs.androidx.appcompat)
 	implementation(libs.firebase.auth)
-	implementation(libs.firebase.auth)
 	implementation(libs.androidx.legacy.support.v4)
 	implementation(libs.androidx.lifecycle.livedata.ktx)
 	implementation(libs.androidx.fragment.ktx)
@@ -70,9 +69,9 @@ dependencies {
 
 	// Dagger
 	implementation(libs.dagger)
-	kapt(libs.dagger.compiler)
+	ksp(libs.dagger.compiler)
 
 	// Dagger Android dependencies
 	implementation(libs.dagger.android)
-	kapt(libs.dagger.android.processor)
+	ksp(libs.dagger.android.processor)
 }

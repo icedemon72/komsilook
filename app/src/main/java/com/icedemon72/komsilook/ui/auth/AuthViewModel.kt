@@ -64,7 +64,7 @@ class AuthViewModel @Inject constructor(
     }
 
     fun logout() {
-        repository.logout();
-        _authState.value = null // Clear the authentication state
+        repository.logout()
+		_authState.value = null // Clear the authentication state
     }
 }

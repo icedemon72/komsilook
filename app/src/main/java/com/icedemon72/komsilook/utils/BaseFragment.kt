@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<Binding : ViewBinding> : Fragment() {
@@ -26,4 +27,25 @@ abstract class BaseFragment<Binding : ViewBinding> : Fragment() {
 		super.onDestroyView()
 		_binding = null
 	}
+
+	fun <T> handleResourceState(
+		resource: Resource<T>?,
+		progressBar: View? = null,
+		onSuccess: (T) -> Unit,
+		onError: ((String) -> Unit)? = null
+	) {
+		when (resource) {
+			is Resource.Loading -> progressBar?.visibility = View.VISIBLE
+			is Resource.Success -> {
+				progressBar?.visibility = View.GONE
+				onSuccess(resource.data!! as T)
+			}
+			is Resource.Error -> {
+				progressBar?.visibility = View.GONE
+				onError?.invoke(resource.message ?: "Došlo je do greške")
+			}
+			null -> progressBar?.visibility = View.GONE
+		}
+	}
+
 }
