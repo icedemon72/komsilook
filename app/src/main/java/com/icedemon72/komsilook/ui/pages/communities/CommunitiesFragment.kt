@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.icedemon72.komsilook.Komsilook
 import com.icedemon72.komsilook.R
 import com.icedemon72.komsilook.databinding.FragmentCommunitiesBinding
@@ -30,9 +31,15 @@ class CommunitiesFragment : BaseFragment<FragmentCommunitiesBinding>() {
 			handleResourceState(
 				resource = state,
 				progressBar = binding.progressBar,
-				onSuccess = { data ->
-					Log.d("Communities: ", data.toString())
-					// Handle success logic here
+				onSuccess = { communities ->
+					val adapter = CommunitiesAdapter(communities) { selectedCommunity ->
+						val action = CommunitiesFragmentDirections
+							.actionCommunitiesFragmentToCommunityFragment(selectedCommunity.id!!)
+						findNavController().navigate(action)
+					}
+					binding.communityRecyclerView.adapter = adapter
+					binding.communityRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+
 				},
 				onError = { errorMessage ->
 					Log.e("CommunitiesError", errorMessage)
@@ -46,7 +53,7 @@ class CommunitiesFragment : BaseFragment<FragmentCommunitiesBinding>() {
 	override fun onAttach(context: Context) {
 		super.onAttach(context)
 		(activity?.application as Komsilook).appComponent.inject(this)
-		communitiesViewModel.getNotJoined()
+		communitiesViewModel.getCommunities()
 	}
 
 	override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentCommunitiesBinding {

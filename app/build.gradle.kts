@@ -3,6 +3,7 @@ plugins {
 	alias(libs.plugins.kotlin.android)
 	alias(libs.plugins.google.gms.google.services)
 	alias(libs.plugins.ksp)
+	id("androidx.navigation.safeargs.kotlin") version "2.7.7"
 }
 
 android {

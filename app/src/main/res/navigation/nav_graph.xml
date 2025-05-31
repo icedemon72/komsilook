@@ -35,6 +35,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postFragment"
+            app:destination="@id/postFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -50,9 +53,6 @@
         android:name="com.icedemon72.komsilook.ui.pages.communities.CommunitiesFragment"
         android:label="fragment_communities"
         tools:layout="@layout/fragment_communities" >
-        <argument
-            android:name="communityId"
-            app:argType="string" />
         <action
             android:id="@+id/action_communitiesFragment_to_createCommunityFragment"
             app:destination="@id/createCommunityFragment" />
@@ -76,6 +76,36 @@
         tools:layout="@layout/fragment_community" >
         <argument
             android:name="communityId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_communityFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.icedemon72.komsilook.ui.pages.posts.createpost.CreatePostFragment"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" >
+        <argument
+            android:name="communityId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_createPostFragment_to_postFragment"
+            app:destination="@id/postFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="com.icedemon72.komsilook.ui.pages.posts.post.PostFragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post" >
+        <argument
+            android:name="communityId"
+            app:argType="string" />
+        <argument
+            android:name="postId"
             app:argType="string" />
     </fragment>
 </navigation>

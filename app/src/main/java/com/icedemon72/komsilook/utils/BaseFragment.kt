@@ -32,7 +32,8 @@ abstract class BaseFragment<Binding : ViewBinding> : Fragment() {
 		resource: Resource<T>?,
 		progressBar: View? = null,
 		onSuccess: (T) -> Unit,
-		onError: ((String) -> Unit)? = null
+		onError: ((String) -> Unit)? = null,
+		errorMessage: String? = null
 	) {
 		when (resource) {
 			is Resource.Loading -> progressBar?.visibility = View.VISIBLE
@@ -42,10 +43,13 @@ abstract class BaseFragment<Binding : ViewBinding> : Fragment() {
 			}
 			is Resource.Error -> {
 				progressBar?.visibility = View.GONE
-				onError?.invoke(resource.message ?: "Došlo je do greške")
+				if (errorMessage.isNullOrEmpty()) {
+					onError?.invoke(errorMessage!!)
+				} else {
+					onError?.invoke(resource.message ?: "Došlo je do greške")
+				}
 			}
 			null -> progressBar?.visibility = View.GONE
 		}
 	}
-
 }

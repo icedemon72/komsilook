@@ -9,10 +9,8 @@ import androidx.activity.OnBackPressedCallback
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.icedemon72.komsilook.Komsilook
-import com.icedemon72.komsilook.R
 import com.icedemon72.komsilook.databinding.FragmentCreateCommunityBinding
 import com.icedemon72.komsilook.utils.BaseFragment
-import com.icedemon72.komsilook.utils.Resource
 import javax.inject.Inject
 
 class CreateCommunityFragment : BaseFragment<FragmentCreateCommunityBinding>() {
@@ -24,32 +22,35 @@ class CreateCommunityFragment : BaseFragment<FragmentCreateCommunityBinding>() {
 		super.onViewCreated(view, savedInstanceState)
 
 		binding.btnCreate.setOnClickListener {
-			binding.etName.text.toString()
-			binding.etDescription.text.toString()
-			binding.etLocation.text.toString()
-			binding.etPrivate.isChecked
+			val name = binding.etName.text.toString()
+			val description = binding.etDescription.text.toString()
+			val location = binding.etLocation.text.toString()
+			val isPrivate = binding.etPrivate.isChecked
 
-			// createCommunityViewModel.create(name, description, location, isPrivate)
+			if (name.isEmpty() || description.isEmpty() || location.isEmpty()) {
+				Snackbar.make(view, "Popunite sva polja.", Snackbar.LENGTH_SHORT).show()
+				return@setOnClickListener
+			}
 
+			 createCommunityViewModel.create(name, description, location, isPrivate)
 		}
 
-//		createCommunityViewModel.communityState.observe(viewLifecycleOwner) { state ->
-//			when (state) {
-//				is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-//				is Resource.Success -> {
-//					binding.progressBar.visibility = View.GONE
-//					Snackbar.make(view, "Uspešno kreiranje Komšilooka!", Snackbar.LENGTH_SHORT).show()
-////					 findNavController().navigate(R.id.action_createCommunityFragment_to_communityFragment)
-//				}
-//				is Resource.Error -> {
-//					binding.progressBar.visibility = View.GONE
-//					Snackbar.make(view, "Greška prilikom krerianja Komšilooka!", Snackbar.LENGTH_LONG).show()
-//				}
-//				null -> {
-//					binding.progressBar.visibility = View.GONE
-//				}
-//			}
-//		}
+		createCommunityViewModel.communityState.observe(viewLifecycleOwner) { state ->
+			handleResourceState(
+				resource = state,
+				progressBar = binding.progressBar,
+				onSuccess = { community ->
+					binding.progressBar.visibility = View.GONE
+					binding.btnCreate.isEnabled = true
+					Snackbar.make(view, "Uspešno kreiranje Komšilooka!", Snackbar.LENGTH_SHORT).show()
+
+					val action = CreateCommunityFragmentDirections
+						.actionCreateCommunityFragmentToCommunityFragment(community.id!!)
+					 findNavController().navigate(action)
+				},
+				errorMessage = "Došlo je do greške prilikom kreiranja Komšilooka."
+			)
+		}
 
 
 

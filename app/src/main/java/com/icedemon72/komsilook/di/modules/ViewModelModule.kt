@@ -4,10 +4,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.icedemon72.komsilook.di.ViewModelFactory
 import com.icedemon72.komsilook.di.annotations.ViewModelKey
 import com.icedemon72.komsilook.ui.auth.AuthViewModel
+import com.icedemon72.komsilook.ui.pages.HomeViewModel
 import com.icedemon72.komsilook.ui.pages.communities.CommunitiesViewModel
 import com.icedemon72.komsilook.ui.pages.communities.community.CommunityViewModel
 import com.icedemon72.komsilook.ui.pages.communities.createcommunity.CreateCommunityViewModel
+import com.icedemon72.komsilook.ui.pages.posts.createpost.CreatePostViewModel
+import com.icedemon72.komsilook.ui.pages.posts.post.PostViewModel
 import com.icedemon72.komsilook.ui.pages.profile.ProfileViewModel
+import com.icedemon72.komsilook.ui.pages.search.SearchViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -42,4 +46,24 @@ abstract class ViewModelModule {
 	@IntoMap
 	@ViewModelKey(CommunitiesViewModel::class)
 	abstract fun bindCommunitiesViewModel(viewModel: CommunitiesViewModel): ViewModel
+
+	@Binds
+	@IntoMap
+	@ViewModelKey(CreatePostViewModel::class)
+	abstract fun bindCreatePostViewModel(viewModel: CreatePostViewModel): ViewModel
+
+	@Binds
+	@IntoMap
+	@ViewModelKey(PostViewModel::class)
+	abstract fun bindPostViewModel(viewModel: PostViewModel): ViewModel
+
+	@Binds
+	@IntoMap
+	@ViewModelKey(HomeViewModel::class)
+	abstract fun bindHomeViewModel(viewModel: HomeViewModel): ViewModel
+
+	@Binds
+	@IntoMap
+	@ViewModelKey(SearchViewModel::class)
+	abstract fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
 }

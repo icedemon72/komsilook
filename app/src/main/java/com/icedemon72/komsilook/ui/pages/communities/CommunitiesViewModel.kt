@@ -1,6 +1,5 @@
 package com.icedemon72.komsilook.ui.pages.communities
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,17 +13,17 @@ import javax.inject.Inject
 
 class CommunitiesViewModel @Inject constructor(
 	private val repository: CommunityRepository,
-	private val auth: FirebaseAuth
+	auth: FirebaseAuth
 ) : ViewModel() {
 	private val userId = auth.currentUser?.uid
 	private val _communitiesState = MutableLiveData<Resource<List<Community>>?>()
 	val communitiesState: LiveData<Resource<List<Community>>?> = _communitiesState
 
-	fun getNotJoined() {
+	fun getCommunities() {
 		viewModelScope.launch {
 			_communitiesState.value = Resource.Loading()
 
-			val result = repository.getNotJoinedCommunities(userId!!)
+			val result = repository.getJoinedCommunities(userId!!)
 			_communitiesState.value = when (result) {
 				is Resource.Success -> Resource.Success(result.data)
 				is Resource.Error -> Resource.Error(result.message!!)

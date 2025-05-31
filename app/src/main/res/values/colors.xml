@@ -16,4 +16,8 @@
     <!-- Button Colors -->
     <color name="button_confirm">#FF4CAF50</color> <!-- Confirm button -->
     <color name="button_cancel">#FFF44336</color> <!-- Cancel button -->
+    <color name="default_border">#FFFFFF</color>
+    <color name="problem_border">#FF0000</color> <!-- Red for Problem -->
+    <color name="announcement_border">#00FF00</color> <!-- Green for Announcement -->
+    <color name="suggestion_border">#0000FF</color> <!-- Blue for Suggestion -->
 </resources>
