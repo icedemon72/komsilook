@@ -12,7 +12,6 @@ import com.icedemon72.komsilook.Komsilook
 import com.icedemon72.komsilook.R
 import com.icedemon72.komsilook.databinding.FragmentCommunitiesBinding
 import com.icedemon72.komsilook.utils.BaseFragment
-import com.icedemon72.komsilook.utils.Resource
 import javax.inject.Inject
 
 class CommunitiesFragment : BaseFragment<FragmentCommunitiesBinding>() {

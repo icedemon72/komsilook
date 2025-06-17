@@ -27,4 +27,18 @@ class SearchViewModel @Inject constructor(
 			_communitiesState.value = result
 		}
 	}
+
+	fun getCommunities() {
+		viewModelScope.launch {
+			_communitiesState.value = Resource.Loading()
+			val result = repository.getNotJoinedCommunities(userId!!)
+			_communitiesState.value = result
+		}
+	}
+
+	fun joinCommunity(community: Community) {
+		viewModelScope.launch {
+			repository.joinCommunity(community.id!!, userId!!)
+		}
+	}
 }

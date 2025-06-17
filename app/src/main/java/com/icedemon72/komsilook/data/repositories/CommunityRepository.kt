@@ -153,30 +153,30 @@ class CommunityRepository @Inject constructor(
 
 	suspend fun searchCommunities(searchParam: String, userId: String): Resource<List<Community>> {
 		return try {
-			val snapshot = db.collection("communities")
+			val querySnapshot = db.collection("communities")
 				.whereEqualTo("private", false)
+				.orderBy("name") // requires index
+				.startAt(searchParam)
+				.endAt(searchParam + "\uf8ff")
 				.get()
 				.await()
 
 			val results = mutableListOf<Community>()
 
-			for (document in snapshot.documents) {
+			for (document in querySnapshot.documents) {
 				val community = document.toObject(Community::class.java)
 				val communityId = document.id
 
-				val memberSnapshot = db.collection("communities")
+				val isMember = db.collection("communities")
 					.document(communityId)
 					.collection("members")
 					.document(userId)
 					.get()
 					.await()
+					.exists()
 
-				if (!memberSnapshot.exists()) {
-					if (community != null && (community.name.contains(searchParam, ignoreCase = true) == true ||
-								community.description.startsWith(searchParam, ignoreCase = true) == true ||
-								community.location.contains(searchParam, ignoreCase = true) == true)) {
-						results.add(community)
-					}
+				if (!isMember && community != null) {
+					results.add(community)
 				}
 			}
 
@@ -201,6 +201,86 @@ class CommunityRepository @Inject constructor(
 			Resource.Success(Unit)
 		} catch (e: Exception) {
 			Resource.Error(e.message ?: "Failed to join community")
+		}
+	}
+
+	suspend fun joinCommunityByCode(code: String, userId: String): Resource<Community> {
+		return try {
+			val querySnapshot = db.collection("communities")
+				.whereEqualTo("code", code)
+				.get()
+				.await()
+
+			if (querySnapshot.isEmpty) {
+				return Resource.Error("Komšilook sa datim kodom ne postoji.")
+			}
+
+			val document = querySnapshot.documents.first()
+			val communityId = document.id
+
+			val memberSnapshot = db.collection("communities")
+				.document(communityId)
+				.collection("members")
+				.document(userId)
+				.get()
+				.await()
+
+			if (memberSnapshot.exists()) {
+				return Resource.Error("Komšilook sa datim kodom ne postoji.")
+			}
+
+			val memberData = mapOf("joinedAt" to FieldValue.serverTimestamp())
+			db.collection("communities")
+				.document(communityId)
+				.collection("members")
+				.document(userId)
+				.set(memberData)
+				.await()
+
+			val community = document.toObject(Community::class.java)
+			if (community != null) {
+				community.id = communityId
+				Resource.Success(community)
+			} else {
+				Resource.Error("Greška prilikom parsiranja komšilooka.")
+			}
+		} catch (e: Exception) {
+			Resource.Error(e.localizedMessage ?: "Greška prilikom pridruživanja komšilooku")
+		}
+	}
+
+	suspend fun deleteCommunity(communityId: String): Resource<Unit> {
+		return try {
+			db.collection("communities").document(communityId).delete().await()
+			Resource.Success(Unit)
+		} catch (e: Exception) {
+			Resource.Error(e.localizedMessage ?: "Greška prilikom brisanja komšilooka")
+		}
+	}
+
+	suspend fun leaveCommunity(communityId: String, userId: String): Resource<Unit> {
+		return try {
+			db.collection("communities")
+				.document(communityId)
+				.collection("members")
+				.document(userId)
+				.delete()
+				.await()
+			Resource.Success(Unit)
+		} catch (e: Exception) {
+			Resource.Error(e.localizedMessage ?: "Greška prilikom napuštanja komšilooka")
+		}
+	}
+
+	suspend fun regenerateCommunityCode(communityId: String): Resource<String> {
+		return try {
+			val newCode = generateRandomString()
+			db.collection("communities").document(communityId)
+				.update("code", newCode)
+				.await()
+			Resource.Success(newCode)
+		} catch (e: Exception) {
+			Resource.Error(e.localizedMessage ?: "Greška prilikom generisanja novog koda")
 		}
 	}
 }

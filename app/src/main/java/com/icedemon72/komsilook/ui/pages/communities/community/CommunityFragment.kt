@@ -29,6 +29,11 @@ class CommunityFragment : BaseFragment<FragmentCommunityBinding>() {
 			findNavController().navigate(action)
 		}
 
+		binding.settingsButton.setOnClickListener {
+			val action = CommunityFragmentDirections.actionCommunityFragmentToCommunitySettingsFragment(communityId!!)
+			findNavController().navigate(action)
+		}
+
 		communityViewModel.communitiesState.observe(viewLifecycleOwner) { state ->
 			handleResourceState(
 				resource = state,

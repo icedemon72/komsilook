@@ -29,6 +29,7 @@ class PostFragment : BaseFragment<FragmentPostBinding>() {
 				progressBar = binding.progressBar,
 				onSuccess = { post ->
 					binding.postTitle.text = post.title
+					binding.postDesc.text = post.description
 				}
 			)
 		}

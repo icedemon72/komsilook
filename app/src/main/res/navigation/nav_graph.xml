@@ -47,7 +47,14 @@
         android:id="@+id/searchFragment"
         android:name="com.icedemon72.komsilook.ui.pages.search.SearchFragment"
         android:label="fragment_search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_joinCommunityFragment"
+            app:destination="@id/joinCommunityFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_communityFragment"
+            app:destination="@id/communityFragment" />
+    </fragment>
     <fragment
         android:id="@+id/communitiesFragment"
         android:name="com.icedemon72.komsilook.ui.pages.communities.CommunitiesFragment"
@@ -83,6 +90,9 @@
         <action
             android:id="@+id/action_communityFragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <action
+            android:id="@+id/action_communityFragment_to_communitySettingsFragment"
+            app:destination="@id/communitySettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/createPostFragment"
@@ -107,5 +117,27 @@
         <argument
             android:name="postId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinCommunityFragment"
+        android:name="com.icedemon72.komsilook.ui.pages.communities.joincommunity.JoinCommunityFragment"
+        android:label="JoinCommunityFragment" >
+        <action
+            android:id="@+id/action_joinCommunityFragment_to_communityFragment"
+            app:destination="@id/communityFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/communitySettingsFragment"
+        android:name="com.icedemon72.komsilook.ui.pages.communities.communitysettings.CommunitySettingsFragment"
+        android:label="CommunitySettingsFragment" >
+        <argument
+            android:name="communityId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_communitySettingsFragment_to_communityFragment"
+            app:destination="@id/communityFragment" />
+        <action
+            android:id="@+id/action_communitySettingsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 </navigation>

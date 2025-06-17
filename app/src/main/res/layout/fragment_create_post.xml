@@ -64,7 +64,10 @@
             <Spinner
                 android:id="@+id/etType"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:layout_marginTop="@dimen/margin_small"
+                android:background="@drawable/spinner_border"/>
 
             <Button
                 android:id="@+id/btnCreate"

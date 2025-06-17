@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.icedemon72.komsilook.R
@@ -19,6 +20,7 @@ class PostsAdapter(
 		val title: TextView = itemView.findViewById(R.id.postTitle)
 		val leftBorder: View = itemView.findViewById(R.id.leftBorder)
 		val floatingIcon: ImageView = itemView.findViewById(R.id.floatingIcon)
+		val card: CardView = itemView.findViewById(R.id.card)
 	}
 
 	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
@@ -37,12 +39,14 @@ class PostsAdapter(
 		// Access the views through ViewBinding
 		val leftBorder = holder.leftBorder
 		val floatingIcon = holder.floatingIcon
+		val card = holder.card
 
 		when (post.type) {
 			"Problem" -> {
 				leftBorder.setBackgroundColor(ContextCompat.getColor(context, R.color.problem_border))
 				floatingIcon.setImageResource(R.drawable.ic_problem_icon)
 				floatingIcon.visibility = View.VISIBLE
+				card.setCardBackgroundColor(ContextCompat.getColor(context, R.color.problem_border))
 			}
 			"Obaveštenje" -> {
 				leftBorder.setBackgroundColor(ContextCompat.getColor(context, R.color.announcement_border))

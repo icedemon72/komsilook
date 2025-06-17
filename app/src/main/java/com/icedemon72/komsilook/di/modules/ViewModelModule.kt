@@ -7,7 +7,9 @@ import com.icedemon72.komsilook.ui.auth.AuthViewModel
 import com.icedemon72.komsilook.ui.pages.HomeViewModel
 import com.icedemon72.komsilook.ui.pages.communities.CommunitiesViewModel
 import com.icedemon72.komsilook.ui.pages.communities.community.CommunityViewModel
+import com.icedemon72.komsilook.ui.pages.communities.communitysettings.CommunitySettingsViewModel
 import com.icedemon72.komsilook.ui.pages.communities.createcommunity.CreateCommunityViewModel
+import com.icedemon72.komsilook.ui.pages.communities.joincommunity.JoinCommunityViewModel
 import com.icedemon72.komsilook.ui.pages.posts.createpost.CreatePostViewModel
 import com.icedemon72.komsilook.ui.pages.posts.post.PostViewModel
 import com.icedemon72.komsilook.ui.pages.profile.ProfileViewModel
@@ -66,4 +68,14 @@ abstract class ViewModelModule {
 	@IntoMap
 	@ViewModelKey(SearchViewModel::class)
 	abstract fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
+
+	@Binds
+	@IntoMap
+	@ViewModelKey(JoinCommunityViewModel::class)
+	abstract fun bindJoinCommunityViewModel(viewModel: JoinCommunityViewModel): ViewModel
+
+	@Binds
+	@IntoMap
+	@ViewModelKey(CommunitySettingsViewModel::class)
+	abstract fun bindCommunitySettingsViewModel(viewModel: CommunitySettingsViewModel): ViewModel
 }

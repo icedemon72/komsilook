@@ -32,14 +32,15 @@
 
     <!-- Floating badge icon (overlapping top-right corner of CardView) -->
     <ImageView
+        android:contentDescription="Floating icon"
         android:id="@+id/floatingIcon"
+        android:background="@drawable/floating_icon_background"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="top|end"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:translationY="-12dp"
-        android:translationX="12dp"
+        android:translationZ="10dp"
         android:src="@drawable/ic_floating_icon"
         android:padding="4dp"
         android:visibility="gone" />

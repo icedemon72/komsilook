@@ -32,7 +32,7 @@ class CreateCommunityViewModel @Inject constructor(
 		viewModelScope.launch {
 			_communityState.value = Resource.Loading()
 
-			val result = repository.createCommunity(name, description, location, isPrivate, userId)
+			val result = repository.createCommunity(name, description, location, isPrivate, userId!!)
 			_communityState.value = when (result) {
 				is Resource.Success -> Resource.Success(result.data)
 				is Resource.Error -> Resource.Error(result.message!!)

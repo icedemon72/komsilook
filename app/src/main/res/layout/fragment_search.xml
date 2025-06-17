@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.pages.search.SearchFragment">
+
     <FrameLayout
-        android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="@dimen/margin_small">
-
 
             <TextView
                 android:layout_width="match_parent"
@@ -21,16 +23,38 @@
                 android:textSize="@dimen/text_3xl"
                 android:textStyle="bold" />
 
+            <EditText
+                android:id="@+id/searchEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_small"
+                android:hint="Unesite naziv"
+                android:inputType="text"
+                android:padding="12dp" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/communityRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_small"
                 android:layout_weight="1"
+                android:layout_marginTop="@dimen/margin_small"
                 tools:listitem="@layout/item_community" />
-
-
         </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/margin_medium"
+            android:contentDescription="Add"
+            android:src="@android:drawable/ic_input_add"
+            app:backgroundTint="@color/button_confirm"
+            app:layout_anchorGravity="bottom|end"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:maxImageSize="40dp"
+            app:rippleColor="@color/button_confirm" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -38,6 +62,5 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:visibility="gone" />
-
     </FrameLayout>
 </layout>

@@ -13,6 +13,9 @@
     <color name="text_primary">#FFFFFFFF</color> <!-- Main text -->
     <color name="text_secondary">#FFAAAAAA</color> <!-- Subtle or secondary text -->
 
+    <!-- Background Colors-->
+    <color name="problem_bg"></color>
+
     <!-- Button Colors -->
     <color name="button_confirm">#FF4CAF50</color> <!-- Confirm button -->
     <color name="button_cancel">#FFF44336</color> <!-- Cancel button -->

@@ -20,6 +20,16 @@
                 android:textSize="@dimen/text_3xl"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/postDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textSize="@dimen/text_md"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/margin_large"/>
+
 
 
         </LinearLayout>

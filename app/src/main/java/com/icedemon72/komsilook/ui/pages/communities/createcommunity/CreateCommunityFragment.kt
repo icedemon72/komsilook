@@ -52,8 +52,6 @@ class CreateCommunityFragment : BaseFragment<FragmentCreateCommunityBinding>() {
 			)
 		}
 
-
-
 		requireActivity().onBackPressedDispatcher.addCallback(
 			viewLifecycleOwner,
 			object : OnBackPressedCallback(true) {

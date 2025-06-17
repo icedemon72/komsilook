@@ -5,17 +5,59 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="@dimen/margin_small">
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/postsRecyclerView"
+            android:fillViewport="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="16dp" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_margin="@dimen/margin_small">
+
+                <TextView
+                    android:id="@+id/textTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Komšilook"
+                    android:textSize="@dimen/text_3xl"
+                    android:textStyle="bold"
+                    />
+
+                <TextView
+                    android:id="@+id/textWelcome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dobrodošli u Komšilook!"
+                    android:textSize="@dimen/text_sm"
+                    android:layout_marginBottom="@dimen/margin_small"/>
+
+                <TextView
+                    android:id="@+id/textDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Komšilook je aplikacija koja povezuje komšije i olakšava svakodnevnu komunikaciju u zajednici. Bilo da želite da delite važne informacije, tražite pomoć ili organizujete dogadjaje u kraju — Komšilook je tu da vaša zajednica bude bliža i sigurnija."
+                    android:textSize="@dimen/text_sm"
+                    android:layout_marginBottom="@dimen/margin_small" />
+
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="310dp"
+                    app:srcCompat="@drawable/landscape"
+                    android:layout_gravity="center"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/postsRecyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:nestedScrollingEnabled="false"
+                    android:layout_marginTop="16dp" />
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"

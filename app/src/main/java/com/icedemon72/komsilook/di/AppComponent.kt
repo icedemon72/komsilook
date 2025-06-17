@@ -12,7 +12,9 @@ import com.icedemon72.komsilook.ui.auth.RegisterFragment
 import com.icedemon72.komsilook.ui.pages.HomeFragment
 import com.icedemon72.komsilook.ui.pages.communities.CommunitiesFragment
 import com.icedemon72.komsilook.ui.pages.communities.community.CommunityFragment
+import com.icedemon72.komsilook.ui.pages.communities.communitysettings.CommunitySettingsFragment
 import com.icedemon72.komsilook.ui.pages.communities.createcommunity.CreateCommunityFragment
+import com.icedemon72.komsilook.ui.pages.communities.joincommunity.JoinCommunityFragment
 import com.icedemon72.komsilook.ui.pages.posts.createpost.CreatePostFragment
 import com.icedemon72.komsilook.ui.pages.posts.post.PostFragment
 import com.icedemon72.komsilook.ui.pages.profile.ProfileFragment
@@ -43,6 +45,8 @@ interface AppComponent {
 	fun inject(fragment: ProfileFragment)
 	fun inject(fragment: CommunityFragment)
 	fun inject(fragment: CommunitiesFragment)
+	fun inject(fragment: JoinCommunityFragment)
+	fun inject(fragment: CommunitySettingsFragment)
 	fun inject(fragment: CreatePostFragment)
 	fun inject(fragment: PostFragment)
 	fun inject(fragment: HomeFragment)
